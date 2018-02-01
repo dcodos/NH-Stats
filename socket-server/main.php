@@ -19,11 +19,6 @@ if ($conn->connect_error) {
 
 while(true) {
     sleep( 5 );
-    $readers = array($fifoFile, $stdin);
-    if (($stream = stream_select( $readers, $writers, $except, 0, 15 )) === false) {
-        print "A stream error occurred\n";
-        break;
-    } else {
         $line = fgets($stdin); // I think were going to make this a search function
 
         $sql = "INSERT INTO messages (sender, type, time, content)
@@ -36,6 +31,5 @@ while(true) {
         }
 
         echo $line;
-    }
 }
 $conn->close();
