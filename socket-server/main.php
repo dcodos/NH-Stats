@@ -17,7 +17,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-while(true) {
+// while(true) {
     sleep( 5 );
         $line = fgets($stdin); // I think were going to make this a search function
 
@@ -31,5 +31,5 @@ while(true) {
         }
 
         echo $line;
-}
+// }
 $conn->close();
