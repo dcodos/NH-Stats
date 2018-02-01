@@ -1,26 +1,35 @@
 #!/usr/local/bin/php
-<?php declare(ticks = 1);
+<?php
 
-$stdin = fopen('php://stdin', 'r');
 
-// echo "COMMUNICATION STARTED\n PID :: " . getmypid() . "\n\n";
-
-$servername = "localhost";
-$username = "root";
-$password = "password";
-$dbname = "mining";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+# Count from 1 to 10 with a sleep
+for ($count = 1; $count <= 10; $count++) {
+	echo $count . "\n";
+	usleep(500000);
 }
-
-while(true) {
-  sleep(5);
-  echo "Testing";
-}
+?>
+// declare(ticks = 1);
+//
+// $stdin = fopen('php://stdin', 'r');
+//
+// // echo "COMMUNICATION STARTED\n PID :: " . getmypid() . "\n\n";
+//
+// $servername = "localhost";
+// $username = "root";
+// $password = "password";
+// $dbname = "mining";
+//
+// // Create connection
+// $conn = new mysqli($servername, $username, $password, $dbname);
+// // Check connection
+// if ($conn->connect_error) {
+//     die("Connection failed: " . $conn->connect_error);
+// }
+//
+// while(true) {
+//   sleep(5);
+//   echo "Testing";
+// }
 // while(true) {
     // sleep( 5 );
     //     $line = fgets($stdin); // I think were going to make this a search function
