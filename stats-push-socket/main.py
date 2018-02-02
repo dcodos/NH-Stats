@@ -28,7 +28,7 @@ def on_open(ws):
             res = requests.get(base_url + command_info)
             dev_info = json.loads(res.content)["devices"]
             num_devices = len(dev_info)
-            ws.send(dev_info)
+            ws.send(json.dumps(dev_info))
             time.sleep(1)
         ws.close()
         print("thread terminating...")
