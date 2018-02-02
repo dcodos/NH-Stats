@@ -14,8 +14,8 @@ def hello_world():
 @app.route('/stats')
 def get_stats():
     item = messages.find_one()
-    # return item
-    return messages
+    return str(item)
+    # return messages
 
 if __name__ == "__main__":
     app.run();
