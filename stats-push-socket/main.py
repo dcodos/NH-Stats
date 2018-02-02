@@ -37,6 +37,7 @@ def on_open(ws):
             all_devices = []
             for dev in device_ids:
                 print("Device ID: " + str(dev))
+                print(command_device_info.format(str(dev)))
                 res = requests.get(base_url + command_device_info.format(str(dev)))
                 device_info = json.loads(res.content)
                 all_devices.append(device_info)
