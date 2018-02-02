@@ -8,7 +8,7 @@ from pymongo import MongoClient
 client = MongoClient()
 
 db = client.mining
-
+db.create_collection('messages', capped=True, size=5242880, max=3)
 messages = db.messages
 
 class WSHandler(tornado.websocket.WebSocketHandler):
@@ -18,7 +18,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     def on_message(self, message):
         # print 'message received:  %s' % json.loads(message)
         result = messages.insert_one(json.loads(message))
-        print(result)
+        # print(result)
         # self.write_message(message)
 
     def on_close(self):
