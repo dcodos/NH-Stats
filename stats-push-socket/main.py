@@ -6,7 +6,7 @@ import datetime
 base_url = 'http://localhost:38080/api?command='
 
 command_info = '{"id":1,"method":"device.list","params":[]}'
-command_device_info = '{"id":1,"method":"device.get","params":[{}]}'
+command_device_info = '{{"id":1,"method":"device.get","params":[{0}]}}'
 try:
     import thread
 except ImportError:
