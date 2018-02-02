@@ -17,6 +17,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     def on_message(self, message):
         # print 'message received:  %s' % json.loads(message)
         result = messages.insert_one(json.loads(message))
+        print("Message logged")
         # print(result)
         # self.write_message(message)
 
