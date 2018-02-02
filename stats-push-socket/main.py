@@ -32,7 +32,7 @@ def on_open(ws):
 
             dev_info_message = {
             'sender': 'dan',
-            'time': cur_time,
+            'time': str(cur_time),
             'method': 'device.list',
             'message': dev_info
             }
