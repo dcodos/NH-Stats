@@ -7,14 +7,18 @@ import json
 from pymongo import MongoClient
 client = MongoClient()
 
-db = client.messages
+db = client.mining
+
+messages = db.messages
 
 class WSHandler(tornado.websocket.WebSocketHandler):
     def open(self):
         print 'new connection'
 
     def on_message(self, message):
-        print 'message received:  %s' % json.loads(message)
+        # print 'message received:  %s' % json.loads(message)
+        result = messages.insert_one(json.loads(message))
+        print(result)
         # self.write_message(message)
 
     def on_close(self):
