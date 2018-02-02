@@ -27,7 +27,7 @@ for ($count = 1; $count <= 10; $count++) {
 // }
 //
 // while(true) {
-//   sleep(5);
+//   sleep(5console.log("wait"););
 //   echo "Testing";
 // }
 // while(true) {
