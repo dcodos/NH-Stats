@@ -15,10 +15,10 @@ from websocket import create_connection
 
 
 ws = create_connection("ws://ec2-18-216-110-114.us-east-2.compute.amazonaws.com:8888/ws")
-print "Sending 'Hello, World'..."
+print("Sending 'Hello, World'...")
 ws.send("Hello, World")
-print "Sent"
-print "Reeiving..."
+print("Sent")
+print("Receiving...")
 result =  ws.recv()
-print "Received '%s'" % result
+print("Received '%s'" % result)
 ws.close()
