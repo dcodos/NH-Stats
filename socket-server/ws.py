@@ -5,6 +5,8 @@ import tornado.web
 import socket
 import json
 from pymongo import MongoClient
+from datetime import datetime
+
 client = MongoClient()
 
 db = client.mining
@@ -16,7 +18,10 @@ class WSHandler(tornado.websocket.WebSocketHandler):
 
     def on_message(self, message):
         # print 'message received:  %s' % json.loads(message)
-        result = messages.insert_one(json.loads(message))
+        mes = json.loads(message)
+        time = mes['time']
+        mes['time'] = datetime.strptime(time)
+        result = messages.insert_one(mes)
         print("Message logged")
         # print(result)
         # self.write_message(message)
