@@ -6,6 +6,7 @@ import datetime
 base_url = 'http://localhost:38080/api?command='
 
 command_info = '{"id":1,"method":"device.list","params":[]}'
+command_device_info = '{"id":1,"method":"device.get","params":[{}]}'
 try:
     import thread
 except ImportError:
@@ -25,20 +26,32 @@ def on_open(ws):
     def run(*args):
         while True:
             res = requests.get(base_url + command_info)
-            dev_info = json.loads(res.content)["devices"]
-            num_devices = len(dev_info)
+            all_dev_info = json.loads(res.content)["devices"]
+
+            device_ids = []
+            for item in all_dev_info:
+                device_id = item["device_id"]
+                device_ids.append(int(device_id))
+
+            all_devices = []
+            for dev in device_ids:
+                res = requests.get(base_url + command_device_info.format(str(dev)))
+                device_info = json.loads(res.content)
+                all_devices.append(device_info)
+
+            print(all_devices)
 
             cur_time = datetime.datetime.now()
 
             dev_info_message = {
             'sender': 'dan',
             'time': str(cur_time),
-            'method': 'device.list',
-            'message': dev_info
+            'method': 'devices',
+            'message': all_dev_info
             }
 
-            ws.send(json.dumps(dev_info_message))
-            time.sleep(1)
+            # ws.send(json.dumps(dev_info_message))
+            time.sleep(30)
         ws.close()
         print("thread terminating...")
     thread.start_new_thread(run, ())
