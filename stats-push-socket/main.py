@@ -5,8 +5,9 @@ import datetime
 
 base_url = 'http://localhost:38080/api?command='
 
-command_info = '{"id":1,"method":"device.list","params":[]}'
+command_device_list = '{"id":1,"method":"device.list","params":[]}'
 command_device_info = '{{"id":1,"method":"device.get","params":["{0}"]}}'
+command_algorithm_list = '{"id":1,"method":"algorithm.list","params":[]}'
 try:
     import thread
 except ImportError:
@@ -25,7 +26,7 @@ def on_close(ws):
 def on_open(ws):
     def run(*args):
         while True:
-            res = requests.get(base_url + command_info)
+            res = requests.get(base_url + command_device_list)
             all_dev_info = json.loads(res.content)["devices"]
 
             device_ids = []
@@ -33,27 +34,33 @@ def on_open(ws):
                 device_id = item["device_id"]
                 device_ids.append(int(device_id))
 
-            print(device_ids)
             all_devices = []
             for dev in device_ids:
-                print("Device ID: " + str(dev))
-                print(command_device_info.format(str(dev)))
                 res = requests.get(base_url + command_device_info.format(str(dev)))
                 device_info = json.loads(res.content)
                 all_devices.append(device_info)
 
-            print(all_devices)
-
             cur_time = datetime.datetime.now()
 
-            dev_info_message = {
-            'sender': 'dan',
-            'time': str(cur_time),
-            'method': 'devices',
-            'message': all_dev_info
-            }
+            # dev_info_message = {
+            # 'sender': 'dan',
+            # 'time': str(cur_time),
+            # 'type': 'devices',
+            # 'message': all_devices
+            # }
 
             # ws.send(json.dumps(dev_info_message))
+
+            res = requests.get(base_url + command_algorithm_list)
+            all_algo_info = json.loads(res.content)["algorithms"]
+            algo_message = {
+            'sender': 'dan',
+            'time': str(cur_time),
+            'type': 'all',
+            'devices': all_devices,
+            'algorithms': all_algo_info
+            }
+            ws.send(json.dumps(algo_message))
             time.sleep(30)
         ws.close()
         print("thread terminating...")
