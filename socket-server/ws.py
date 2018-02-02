@@ -3,22 +3,19 @@ import tornado.websocket
 import tornado.ioloop
 import tornado.web
 import socket
-'''
-This is a simple Websocket Echo server that uses the Tornado websocket handler.
-Please run `pip install tornado` with python of version 2.7.9 or greater to install tornado.
-This program will echo back the reverse of whatever it recieves.
-Messages are output to the terminal for debuggin purposes.
-'''
+import json
+from pymongo import MongoClient
+client = MongoClient()
+
+db = client.messages
 
 class WSHandler(tornado.websocket.WebSocketHandler):
     def open(self):
         print 'new connection'
 
     def on_message(self, message):
-        print 'message received:  %s' % message
-        # Reverse Message and send it back
-        print 'sending back message: %s' % message
-        self.write_message(message)
+        print 'message received:  %s' % json.loads(message)
+        # self.write_message(message)
 
     def on_close(self):
         print 'connection closed'
