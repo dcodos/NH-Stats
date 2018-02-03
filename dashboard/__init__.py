@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from pymongo import MongoClient
+import requests
 client = MongoClient()
 
 db = client.mining
@@ -13,6 +14,7 @@ def hello_world():
 
 @app.route('/stats')
 def get_stats():
+    profit_info = get_nh_profits()
     item = messages.find().sort('time', -1)[0]
     devices = item['devices']
     algorithms = item['algorithms']
@@ -45,14 +47,37 @@ def get_stats():
                 new_worker['speed'] = speed
                 worker_objects.append(new_worker)
 
+
         algo['workers'] = worker_objects
         algo['total_speed'] = tot_speed
-        algo_objects.append(algo)
+        payrate = findpayrate(profit_info, name)
+        btcPrice = getBtcPrice()
+        algo['btc_payout'] = payrate * tot_speed
+        algo['usd_payout'] = payrate * tot_speed * btcPrice
 
+        algo_objects.append(algo)
 
     return render_template('index.html', devices = devices, algorithms = algo_objects)
     # return str(item)
     # return messages
+
+def getBtcPrice():
+    url = "https://api.gdax.com/products/BTC-USD/ticker"
+    r = requests.get(url)
+    btc_price = float(r.json()["price"])
+
+def findpayrate(profit_info, algo_name):
+    for item in profit_info:
+        if item['name'] = algo_name:
+            return float(item['paying'])
+
+def get_nh_profits():
+    url = "https://api.nicehash.com/api?method=simplemultialgo.info"
+    response = requests.get(url)
+    try:
+        nicehash_profits = response.json()["result"]["simplemultialgo"]
+    except:
+        print("uh oh")
 
 if __name__ == "__main__":
     app.run();
