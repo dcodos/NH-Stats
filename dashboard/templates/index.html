@@ -3,6 +3,10 @@
         <title>NH Stats</title>
     </head>
     <body>
-        Devices: <br> {{ devices }}
+        Devices: <br>
+{% for device in devices %}
+        {{ device }}
+        <br>
+        {% endfor %}
     </body>
 </html>
