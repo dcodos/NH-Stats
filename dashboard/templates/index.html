@@ -39,6 +39,24 @@
             {% endfor %}
             </ul>
           </td>
+          <td>
+            <table>
+              <thead>
+                <th>Device ID</th>
+                <th>Speed</th>
+              </thead>
+              {% for worker in algo.workers %}
+                <tr>
+                  <td>{{ worker.worker_id }}</td>
+                  <td>{{ worker.speed[0] }}
+                    {% if worker.speed[1] != 0.0 %}
+                      ({{ worker.speed[1] }})
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </table>
+          </td>
         </tr>
         {% endfor %}
       </table>
