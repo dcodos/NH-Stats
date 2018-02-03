@@ -38,7 +38,7 @@
           <tbody>
             {% for algo in algorithms %}
             <tr>
-              <td>{{ algo.name }}</td>
+              <td>{{ algo.name.title() }}</td>
               <td>
                 <ul>
                 {% for pool in algo.pools %}
