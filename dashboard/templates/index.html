@@ -69,7 +69,7 @@
                         </td>
                       </tr>
                     {% endfor %}
-                    <tr><b>{{ tot }}</b></tr>
+                    <tr><b>{{ worker|sum(attribute='speed') }}</b></tr>
                   </tbody>
                 </table>
               </td>
