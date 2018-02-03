@@ -57,7 +57,9 @@
                     </tr>
                   </thead>
                   <tbody>
+                    {% set tot = 0 %}
                     {% for worker in algo.workers %}
+                    {% set tot = tot + worker.speed[0] %}
                       <tr>
                         <td>{{ devices[worker.device_id].name }}</td>
                         <td>{{ worker.speed[0] }}
@@ -67,6 +69,7 @@
                         </td>
                       </tr>
                     {% endfor %}
+                    <tr><b>{{ tot }}</b></tr>
                   </tbody>
                 </table>
               </td>
