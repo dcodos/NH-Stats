@@ -9,10 +9,6 @@ messages = db.messages
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-    return 'Hello, World!'
-
-@app.route('/stats')
 def get_stats():
     profit_info = get_nh_profits()
     item = messages.find().sort('time', -1)[0]
