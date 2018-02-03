@@ -46,7 +46,7 @@ def get_stats():
                 worker_objects.append(new_worker)
 
         algo['workers'] = worker_objects
-        algo['total'] = tot_speed
+        algo['total_speed'] = tot_speed
         algo_objects.append(algo)
 
 

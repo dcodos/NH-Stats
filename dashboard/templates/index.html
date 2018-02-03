@@ -67,6 +67,15 @@
                         </td>
                       </tr>
                     {% endfor %}
+                    <tr>
+                      <td></td>
+                      <td>
+                        {{ algo.total_speed[0] }}
+                        {% if algo.total_speed[1] != 0.0 %}
+                          ({{ algo.total_speed[1] }})
+                        {% endif %}
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </td>
