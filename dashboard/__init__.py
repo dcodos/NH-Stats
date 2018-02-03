@@ -60,8 +60,8 @@ def get_stats():
         algo['btc_payout'] = btc_payout
         algo['usd_payout'] = usd_payout
 
-        overall_btc = btc_payout
-        overall_usd = usd_payout
+        overall_btc += btc_payout
+        overall_usd += usd_payout
 
         algo_objects.append(algo)
 
