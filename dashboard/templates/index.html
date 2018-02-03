@@ -4,74 +4,76 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
-      <table class="table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Device Name</th>
-            <th>Power Usage</th>
-            <th>Temp</th>
-            <th>Fan Speed</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for device in devices %}
-          <tr>
-            <td>{{ device.device_id }}</td>
-            <td>{{ device.name }}</td>
-            <td>{{ device.gpu_power_usage }}</td>
-            <td>{{ device.gpu_temp }}</td>
-            <td>{{ device.gpu_fan_speed }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div class="container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Device Name</th>
+              <th>Power Usage</th>
+              <th>Temp</th>
+              <th>Fan Speed</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for device in devices %}
+            <tr>
+              <td>{{ device.device_id }}</td>
+              <td>{{ device.name }}</td>
+              <td>{{ device.gpu_power_usage }}</td>
+              <td>{{ device.gpu_temp }}</td>
+              <td>{{ device.gpu_fan_speed }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Algorith Name</th>
-            <th>Pool Address</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for algo in algorithms %}
-          <tr>
-            <td>{{ algo.name }}</td>
-            <td>
-              <ul>
-              {% for pool in algo.pools %}
-                {% if pool.connected %}
-                  <li>{{ pool.address }}</li>
-                {% endif %}
-              {% endfor %}
-              </ul>
-            </td>
-            <td>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Device ID</th>
-                    <th>Speed</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for worker in algo.workers %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Algorith Name</th>
+              <th>Pool Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for algo in algorithms %}
+            <tr>
+              <td>{{ algo.name }}</td>
+              <td>
+                <ul>
+                {% for pool in algo.pools %}
+                  {% if pool.connected %}
+                    <li>{{ pool.address }}</li>
+                  {% endif %}
+                {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <table class="table">
+                  <thead>
                     <tr>
-                      <td>{{ worker.worker_id }}</td>
-                      <td>{{ worker.speed[0] }}
-                        {% if worker.speed[1] != 0.0 %}
-                          ({{ worker.speed[1] }})
-                        {% endif %}
-                      </td>
+                      <th>Device</th>
+                      <th>Speed</th>
                     </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+                  </thead>
+                  <tbody>
+                    {% for worker in algo.workers %}
+                      <tr>
+                        <td>{{ devices[worker.device_id].name }}</td>
+                        <td>{{ worker.speed[0] }}
+                          {% if worker.speed[1] != 0.0 %}
+                            ({{ worker.speed[1] }})
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </body>
 </html>
