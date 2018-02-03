@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from pymongo import MongoClient
 client = MongoClient()
 
@@ -14,7 +14,8 @@ def hello_world():
 @app.route('/stats')
 def get_stats():
     item = messages.find().sort('time', -1)[0]
-    return str(item)
+    return render_template('index.html', devices = item['devices'], algorithms = item['algorithms'])
+    # return str(item)
     # return messages
 
 if __name__ == "__main__":
