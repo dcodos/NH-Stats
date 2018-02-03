@@ -13,7 +13,7 @@ def hello_world():
 
 @app.route('/stats')
 def get_stats():
-    item = messages.find().sort('time', 1)[0]
+    item = messages.find().sort('time', -1)[0]
     return str(item)
     # return messages
 
