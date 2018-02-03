@@ -40,7 +40,7 @@ def on_open(ws):
                 device_info = json.loads(res.content)
                 all_devices.append(device_info)
 
-            cur_time = datetime.datetime.now()
+            cur_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
             # dev_info_message = {
             # 'sender': 'dan',
@@ -55,7 +55,7 @@ def on_open(ws):
             all_algo_info = json.loads(res.content)["algorithms"]
             algo_message = {
             'sender': 'dan',
-            'time': str(cur_time),
+            'time': cur_time,
             'type': 'all',
             'devices': all_devices,
             'algorithms': all_algo_info

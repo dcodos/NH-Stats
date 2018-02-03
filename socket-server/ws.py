@@ -20,7 +20,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         # print 'message received:  %s' % json.loads(message)
         mes = json.loads(message)
         time = mes['time']
-        mes['time'] = datetime.strptime(time)
+        mes['time'] = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
         result = messages.insert_one(mes)
         print("Message logged")
         # print(result)
