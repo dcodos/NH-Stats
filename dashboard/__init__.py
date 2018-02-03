@@ -68,7 +68,7 @@ def getBtcPrice():
 
 def findpayrate(profit_info, algo_name):
     for item in profit_info:
-        if item['name'] = algo_name:
+        if item['name'] == algo_name:
             return float(item['paying'])
 
 def get_nh_profits():
