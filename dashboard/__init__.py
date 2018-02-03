@@ -65,6 +65,7 @@ def getBtcPrice():
     url = "https://api.gdax.com/products/BTC-USD/ticker"
     r = requests.get(url)
     btc_price = float(r.json()["price"])
+    return btc_price
 
 def findpayrate(profit_info, algo_name):
     for item in profit_info:
