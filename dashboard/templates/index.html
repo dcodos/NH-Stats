@@ -20,9 +20,9 @@
             <tr>
               <td>{{ device.device_id }}</td>
               <td>{{ device.name }}</td>
-              <td>{{ device.gpu_power_usage }}</td>
-              <td>{{ device.gpu_temp }}</td>
-              <td>{{ device.gpu_fan_speed }}</td>
+              <td>{{ round(device.gpu_power_usage, 2) }} W</td>
+              <td>{{ device.gpu_temp }} °C</td>
+              <td>{{ device.gpu_fan_speed } }%</td>
             </tr>
             {% endfor %}
           </tbody>
