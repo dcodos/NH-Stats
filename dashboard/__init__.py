@@ -19,6 +19,8 @@ def get_stats():
     devices = item['devices']
     algorithms = item['algorithms']
 
+    overall_btc = 0.0
+    overall_usd = 0.0
     algo_objects = []
     for algo in algorithms:
         name = algo['name']
@@ -52,12 +54,18 @@ def get_stats():
         algo['total_speed'] = tot_speed
         payrate = findpayrate(profit_info, name)
         btcPrice = getBtcPrice()
-        algo['btc_payout'] = payrate * float(tot_speed[0]) / 1000000000
-        algo['usd_payout'] = payrate * float(tot_speed[0]) / 1000000000 * btcPrice
+
+        btc_payout = payrate * float(tot_speed[0]) / 1000000000
+        usd_payout = btc_payout * btcPrice
+        algo['btc_payout'] = btc_payout
+        algo['usd_payout'] = usd_payout
+
+        overall_btc = btc_payout
+        overall_usd = usd_payout
 
         algo_objects.append(algo)
 
-    return render_template('index.html', devices = devices, algorithms = algo_objects)
+    return render_template('index.html', devices = devices, algorithms = algo_objects, overall_btc = overall_btc, overall_usd = overall_usd)
     # return str(item)
     # return messages
 

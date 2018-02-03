@@ -1,99 +1,103 @@
 <html>
     <head>
         <title>NH Stats</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
       <div class="container">
-        <table class="table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Device Name</th>
-              <th>Power Usage</th>
-              <th>Temp</th>
-              <th>Fan Speed</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for device in devices %}
-            <tr>
-              <td>{{ device.device_id }}</td>
-              <td>{{ device.name }}</td>
-              <td>{{ device.gpu_power_usage|round(2) }} W</td>
-              <td>{{ device.gpu_temp }} °C</td>
-              <td>{{ device.gpu_fan_speed }}%</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Algorith Name</th>
-              <th>Pool Address</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for algo in algorithms %}
-            <tr>
-              <td>{{ algo.name.title() }}</td>
-              <td>
-                <ul style="list-style: none;">
-                {% for pool in algo.pools %}
-                  {% if pool.connected %}
-                    <li>{{ pool.address }}</li>
-                  {% endif %}
-                {% endfor %}
-                </ul>
-              </td>
-              <td>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>Device</th>
-                      <th>Speed</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for worker in algo.workers %}
+        <div class="row">
+          <table class="table col-sm-12">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Device Name</th>
+                <th>Power Usage</th>
+                <th>Temp</th>
+                <th>Fan Speed</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for device in devices %}
+              <tr>
+                <td>{{ device.device_id }}</td>
+                <td>{{ device.name }}</td>
+                <td>{{ device.gpu_power_usage|round(2) }} W</td>
+                <td>{{ device.gpu_temp }} °C</td>
+                <td>{{ device.gpu_fan_speed }}%</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <h2 class="col-sm-6">{{ overall_btc|round(8) }} BTC</h2>
+          <h2 class="col-sm-6">${{ overall_usd|round(2) }}</h2>
+          <table class="table col-sm-12">
+            <thead>
+              <tr>
+                <th>Algorith Name</th>
+                <th>Pool Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for algo in algorithms %}
+              <tr>
+                <td>{{ algo.name.title() }}</td>
+                <td>
+                  <ul style="list-style: none;">
+                  {% for pool in algo.pools %}
+                    {% if pool.connected %}
+                      <li>{{ pool.address }}</li>
+                    {% endif %}
+                  {% endfor %}
+                  </ul>
+                </td>
+                <td>
+                  <table class="table">
+                    <thead>
                       <tr>
-                        <td>{{ devices[worker.device_id].name }}</td>
-                        <td>{{ worker.speed[0] }}
-                          {% if worker.speed[1] != 0.0 %}
-                            ({{ worker.speed[1] }})
-                          {% endif %}
+                        <th>Device</th>
+                        <th>Speed</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for worker in algo.workers %}
+                        <tr>
+                          <td>{{ devices[worker.device_id].name }}</td>
+                          <td>{{ worker.speed[0] }}
+                            {% if worker.speed[1] != 0.0 %}
+                              ({{ worker.speed[1] }})
+                            {% endif %}
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      <tr>
+                        <td></td>
+                        <td>
+                          <strong>
+                            {{ algo.total_speed[0] }}
+                            {% if algo.total_speed[1] != 0.0 %}
+                              ({{ algo.total_speed[1] }})
+                            {% endif %}
+                          </strong>
                         </td>
                       </tr>
-                    {% endfor %}
-                    <tr>
-                      <td></td>
-                      <td>
-                        <strong>
-                          {{ algo.total_speed[0] }}
-                          {% if algo.total_speed[1] != 0.0 %}
-                            ({{ algo.total_speed[1] }})
-                          {% endif %}
-                        </strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>
-                        <strong>
-                          {{ algo.btc_payout|round(8) }} BTC
-                        </strong>
-                        (${{ algo.usd_payout|round(2) }})
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+                      <tr>
+                        <td></td>
+                        <td>
+                          <strong>
+                            {{ algo.btc_payout|round(8) }} BTC
+                          </strong>
+                          (${{ algo.usd_payout|round(2) }})
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </body>
 </html>
