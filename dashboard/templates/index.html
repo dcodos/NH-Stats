@@ -24,19 +24,17 @@
 
       <table>
         <thead>
-          <th></th>
           <th>Algorith Name</th>
-          <th></th>
+          <th>Pool Address</th>
         </thead>
         {% for algo in algorithms %}
         <tr>
-          <td>{{ algo.algorithm_id }}</td>
           <td>{{ algo.name }}</td>
           <td>
             <ul>
             {% for pool in algo.pools %}
               {% if pool.connected %}
-                <li>pool.address</li>
+                <li>{{ pool.address }}</li>
               {% endif %}
             {% endfor %}
             </ul>
