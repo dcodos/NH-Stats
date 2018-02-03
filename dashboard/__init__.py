@@ -76,6 +76,7 @@ def get_nh_profits():
     response = requests.get(url)
     try:
         nicehash_profits = response.json()["result"]["simplemultialgo"]
+        return nicehash_profits
     except:
         print("uh oh")
 
