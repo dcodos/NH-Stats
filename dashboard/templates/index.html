@@ -3,9 +3,9 @@
         <title>NH Stats</title>
     </head>
     <body>
-        Devices:
       <table>
         <thead>
+          <th></th>
           <th>Device Name</th>
           <th>Power Usage</th>
           <th>Temp</th>
@@ -13,10 +13,34 @@
         </thead>
         {% for device in devices %}
         <tr>
+          <td>{{ device.device_id }}</td>
           <td>{{ device.name }}</td>
           <td>{{ device.gpu_power_usage }}</td>
           <td>{{ device.gpu_temp }}</td>
           <td>{{ device.gpu_fan_speed }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+
+      <table>
+        <thead>
+          <th></th>
+          <th>Algorith Name</th>
+          <th></th>
+        </thead>
+        {% for algo in algorithms %}
+        <tr>
+          <td>{{ algo.algorithm_id }}</td>
+          <td>{{ algo.name }}</td>
+          <td>
+            <ul>
+            {% for pool in algo.pools %}
+              {% if pool.connected %}
+                <li>pool.address</li>
+              {% endif %}
+            {% endfor %}
+            </ul>
+          </td>
         </tr>
         {% endfor %}
       </table>
