@@ -69,7 +69,7 @@ def on_open(ws):
 
 if __name__ == "__main__":
     websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("ws://ec2-18-216-164-213.us-east-2.compute.amazonaws.com:8888/ws",
+    ws = websocket.WebSocketApp("ws://nhstats.ga:8888/ws",
                               on_message = on_message,
                               on_error = on_error,
                               on_close = on_close)
