@@ -3,10 +3,22 @@
         <title>NH Stats</title>
     </head>
     <body>
-        Devices: <br>
-{% for device in devices %}
-        {{ device }}
-        <br>
+        Devices:
+      <table>
+        <thead>
+          <th>Device Name</th>
+          <th>Power Usage</th>
+          <th>Temp</th>
+          <th>Fan Speed</th>
+        </thead>
+        {% for device in devices %}
+        <tr>
+          <td>{{ device.name }}</td>
+          <td>{{ device.gpu_power_usage }}</td>
+          <td>{{ device.gpu_temp }}</td>
+          <td>{{ device.gpu_fan_speed }}</td>
+        </tr>
         {% endfor %}
+      </table>
     </body>
 </html>
