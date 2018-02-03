@@ -20,7 +20,7 @@
             <tr>
               <td>{{ device.device_id }}</td>
               <td>{{ device.name }}</td>
-              <td>{{ device.gpu_power_usage }} W</td>
+              <td>{{ device.gpu_power_usage|round(2) }} W</td>
               <td>{{ device.gpu_temp }} °C</td>
               <td>{{ device.gpu_fan_speed }}%</td>
             </tr>
@@ -40,7 +40,7 @@
             <tr>
               <td>{{ algo.name.title() }}</td>
               <td>
-                <ul>
+                <ul style="list-style: none;">
                 {% for pool in algo.pools %}
                   {% if pool.connected %}
                     <li>{{ pool.address }}</li>
