@@ -52,8 +52,8 @@ def get_stats():
         algo['total_speed'] = tot_speed
         payrate = findpayrate(profit_info, name)
         btcPrice = getBtcPrice()
-        algo['btc_payout'] = payrate * tot_speed
-        algo['usd_payout'] = payrate * tot_speed * btcPrice
+        algo['btc_payout'] = payrate * float(tot_speed)
+        algo['usd_payout'] = payrate * float(tot_speed) * btcPrice
 
         algo_objects.append(algo)
 
